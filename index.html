@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Word Realms Game</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/icon_180x180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Splash -->
+    <section id="splash-screen" class="screen active">
+      <div class="splash-inner">
+        <div class="splash-logo">WORD REALMS<br/><span>PREMIUM</span></div>
+        <div class="splash-glow"></div>
+      </div>
+    </section>
+
+    <!-- Main menu -->
+    <section id="menu-screen" class="screen">
+      <header class="top-bar">
+        <div class="logo">Word Realms</div>
+        <div class="top-bar-right">
+          <button id="lang-toggle" class="pill-button">TR / EN</button>
+          <button id="sound-toggle" class="icon-button" aria-label="Ses">
+            <span class="icon-sound-on">🔊</span>
+            <span class="icon-sound-off">🔈</span>
+          </button>
+        </div>
+      </header>
+      <div class="menu-main">
+        <div class="menu-title" data-i18n="titleMain"></div>
+        <div class="menu-cards">
+          <button id="btn-levels" class="menu-card">
+            <div class="menu-card-icon">📘</div>
+            <div class="menu-card-title" data-i18n="levels"></div>
+            <div class="menu-card-sub" data-i18n="levelsSub"></div>
+          </button>
+          <button id="btn-timemode" class="menu-card">
+            <div class="menu-card-icon">⏱️</div>
+            <div class="menu-card-title" data-i18n="timeMode"></div>
+            <div class="menu-card-sub" data-i18n="timeModeSub"></div>
+          </button>
+        </div>
+        <button id="btn-missions" class="pill-button missions-btn" data-i18n="missions"></button>
+      </div>
+    </section>
+
+    <!-- Difficulty for time mode -->
+    <section id="time-select-screen" class="screen">
+      <header class="top-bar">
+        <button class="icon-button back-btn" data-back="menu">⟵</button>
+        <div class="logo small">Word Realms</div>
+        <div class="top-bar-right">
+          <button id="sound-toggle-2" class="icon-button" aria-label="Ses">
+            <span class="icon-sound-on">🔊</span>
+            <span class="icon-sound-off">🔈</span>
+          </button>
+        </div>
+      </header>
+      <div class="menu-main">
+        <div class="menu-title" data-i18n="timeMode"></div>
+        <div class="menu-cards vertical">
+          <button class="menu-card time-option" data-diff="easy">
+            <div class="menu-card-title" data-i18n="easy"></div>
+            <div class="menu-card-sub">90s</div>
+          </button>
+          <button class="menu-card time-option" data-diff="normal">
+            <div class="menu-card-title" data-i18n="normal"></div>
+            <div class="menu-card-sub">60s</div>
+          </button>
+          <button class="menu-card time-option" data-diff="hard">
+            <div class="menu-card-title" data-i18n="hard"></div>
+            <div class="menu-card-sub">30s</div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category selection -->
+    <section id="category-screen" class="screen">
+      <header class="top-bar">
+        <button class="icon-button back-btn" data-back="menu">⟵</button>
+        <div class="logo small">Word Realms</div>
+        <div class="top-bar-right">
+          <button id="sound-toggle-3" class="icon-button" aria-label="Ses">
+            <span class="icon-sound-on">🔊</span>
+            <span class="icon-sound-off">🔈</span>
+          </button>
+        </div>
+      </header>
+      <div class="menu-title center" data-i18n="chooseCategory"></div>
+      <div id="category-grid" class="category-grid"></div>
+    </section>
+
+    <!-- Game screen -->
+    <section id="game-screen" class="screen">
+      <header class="top-bar">
+        <button class="icon-button back-btn" data-back="menu">⟵</button>
+        <div class="game-header-center">
+          <div id="mode-label" class="current-category-name"></div>
+          <div id="info-label" class="level-label"></div>
+        </div>
+        <button id="sound-toggle-4" class="icon-button" aria-label="Ses">
+          <span class="icon-sound-on">🔊</span>
+          <span class="icon-sound-off">🔈</span>
+        </button>
+      </header>
+
+      <main class="game-main">
+        <div class="wheel-container">
+          <div id="letter-wheel" class="letter-wheel"></div>
+          <svg id="letter-lines" class="letter-lines"></svg>
+        </div>
+
+        <div class="current-word-wrap">
+          <div id="current-word" class="current-word"></div>
+        </div>
+
+        <div class="controls-row">
+          <button id="clear-word" class="primary-button" data-i18n="clear"></button>
+          <button id="shuffle-letters" class="primary-button" data-i18n="shuffle"></button>
+        </div>
+
+        <div class="status-row">
+          <div id="timer-display" class="status-pill hidden">60</div>
+          <div id="mission-brief" class="status-pill"></div>
+        </div>
+
+
+        <button id="hint-button" class="hint-btn" type="button">
+          ✨
+        </button>
+
+
+        <div class="found-words-panel">
+          <h2 data-i18n="foundWords"></h2>
+          <ul id="found-words-list"></ul>
+        </div>
+      </main>
+    </section>
+
+    <!-- Overlay for level/time results -->
+    <div id="overlay" class="overlay hidden">
+      <div class="overlay-card">
+        <div id="overlay-title" class="overlay-title">Tebrikler!</div>
+        <div id="overlay-text" class="overlay-text"></div>
+        <button id="overlay-primary" class="primary-button overlay-btn"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <div id="word-info-popup">
+    <div class="word-info-inner">
+      <div id="word-info-title" class="word-info-title"></div>
+      <div id="word-info-text" class="word-info-text"></div>
+    </div>
+  </div>
+
+</body>
+</html>
